@@ -1,0 +1,202 @@
+USE [master]
+GO
+/****** Nombre: Carmen Jissell Mariñez R.  Matricula: 11-SIIN-1-076 seccion: 0541 ******/
+
+/****** Nombre: Ingrid Reyes               Matricula: 10-EIIN-1-029 seccion: 0541 ******/
+
+/****** Nombre: Luiggie Valdez             Matricula: 15-SIIN-1-120 seccion: 0541 ******/
+
+CREATE DATABASE [FarmaciaBD]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'FarmaciaBD', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL13.SQLEXPRESS\MSSQL\DATA\FarmaciaBD.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'FarmaciaBD_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL13.SQLEXPRESS\MSSQL\DATA\FarmaciaBD_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+GO
+ALTER DATABASE [FarmaciaBD] SET COMPATIBILITY_LEVEL = 130
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [FarmaciaBD].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [FarmaciaBD] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [FarmaciaBD] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [FarmaciaBD] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [FarmaciaBD] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [FarmaciaBD] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [FarmaciaBD] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [FarmaciaBD] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [FarmaciaBD] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [FarmaciaBD] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [FarmaciaBD] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [FarmaciaBD] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [FarmaciaBD] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [FarmaciaBD] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [FarmaciaBD] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [FarmaciaBD] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [FarmaciaBD] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [FarmaciaBD] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [FarmaciaBD] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [FarmaciaBD] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [FarmaciaBD] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [FarmaciaBD] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [FarmaciaBD] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [FarmaciaBD] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [FarmaciaBD] SET  MULTI_USER 
+GO
+ALTER DATABASE [FarmaciaBD] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [FarmaciaBD] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [FarmaciaBD] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [FarmaciaBD] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [FarmaciaBD] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [FarmaciaBD] SET QUERY_STORE = OFF
+GO
+USE [FarmaciaBD]
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET LEGACY_CARDINALITY_ESTIMATION = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET LEGACY_CARDINALITY_ESTIMATION = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET MAXDOP = 0;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET MAXDOP = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET PARAMETER_SNIFFING = ON;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET PARAMETER_SNIFFING = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET QUERY_OPTIMIZER_HOTFIXES = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET QUERY_OPTIMIZER_HOTFIXES = PRIMARY;
+GO
+USE [FarmaciaBD]
+GO
+/****** Object:  Table [dbo].[Articulo]    Script Date: 5/12/2017 01:15:48 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Articulo](
+	[CodigoArticulo] [int] IDENTITY(1,1) NOT NULL,
+	[Nombre] [nvarchar](100) NULL,
+	[Laboratorio] [int] NULL,
+	[Precio] [int] NULL,
+ CONSTRAINT [PK_Articulo] PRIMARY KEY CLUSTERED 
+(
+	[CodigoArticulo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Cliente]    Script Date: 5/12/2017 01:15:48 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Cliente](
+	[CodigoCliente] [int] IDENTITY(1,1) NOT NULL,
+	[Nombre] [nvarchar](100) NULL,
+	[RNC] [int] NULL,
+	[Seguro] [nvarchar](100) NULL,
+	[Articulo] [int] NULL,
+ CONSTRAINT [PK_Cliente] PRIMARY KEY CLUSTERED 
+(
+	[CodigoCliente] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Laboratorio]    Script Date: 5/12/2017 01:15:48 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Laboratorio](
+	[CodigoLaboratorio] [int] IDENTITY(1,1) NOT NULL,
+	[Nombre] [nvarchar](100) NULL,
+ CONSTRAINT [PK_Laboratorio] PRIMARY KEY CLUSTERED 
+(
+	[CodigoLaboratorio] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Articulo] ON 
+
+INSERT [dbo].[Articulo] ([CodigoArticulo], [Nombre], [Laboratorio], [Precio]) VALUES (1, N'Anabolex', 1, 150)
+INSERT [dbo].[Articulo] ([CodigoArticulo], [Nombre], [Laboratorio], [Precio]) VALUES (2, N'Prospan', 2, 200)
+INSERT [dbo].[Articulo] ([CodigoArticulo], [Nombre], [Laboratorio], [Precio]) VALUES (3, N'Oculpres', 3, 100)
+INSERT [dbo].[Articulo] ([CodigoArticulo], [Nombre], [Laboratorio], [Precio]) VALUES (4, N'Sovaldi', 4, 125)
+INSERT [dbo].[Articulo] ([CodigoArticulo], [Nombre], [Laboratorio], [Precio]) VALUES (5, N'B Complex', 5, 300)
+INSERT [dbo].[Articulo] ([CodigoArticulo], [Nombre], [Laboratorio], [Precio]) VALUES (6, N'Medicare jabon', 6, 350)
+INSERT [dbo].[Articulo] ([CodigoArticulo], [Nombre], [Laboratorio], [Precio]) VALUES (7, N'Adelgazin G', 7, 175)
+INSERT [dbo].[Articulo] ([CodigoArticulo], [Nombre], [Laboratorio], [Precio]) VALUES (8, N'Aspirina', 8, 75)
+INSERT [dbo].[Articulo] ([CodigoArticulo], [Nombre], [Laboratorio], [Precio]) VALUES (9, N'Amebax', 9, 160)
+INSERT [dbo].[Articulo] ([CodigoArticulo], [Nombre], [Laboratorio], [Precio]) VALUES (10, N'Cinarax 75', 10, 150)
+SET IDENTITY_INSERT [dbo].[Articulo] OFF
+SET IDENTITY_INSERT [dbo].[Cliente] ON 
+
+INSERT [dbo].[Cliente] ([CodigoCliente], [Nombre], [RNC], [Seguro], [Articulo]) VALUES (1, N'Maria Alcantara', 789546231, N'Futuro', 1)
+INSERT [dbo].[Cliente] ([CodigoCliente], [Nombre], [RNC], [Seguro], [Articulo]) VALUES (2, N'Luz Ramos', 987954652, N'Humano', 2)
+INSERT [dbo].[Cliente] ([CodigoCliente], [Nombre], [RNC], [Seguro], [Articulo]) VALUES (3, N'Juaquin Ortiz', 898453215, N'Senasa', 3)
+INSERT [dbo].[Cliente] ([CodigoCliente], [Nombre], [RNC], [Seguro], [Articulo]) VALUES (4, N'Julieta Morales', 565645265, N'Futuro', 4)
+INSERT [dbo].[Cliente] ([CodigoCliente], [Nombre], [RNC], [Seguro], [Articulo]) VALUES (5, N'Milka Cruz', 897544565, N'Humano', 5)
+INSERT [dbo].[Cliente] ([CodigoCliente], [Nombre], [RNC], [Seguro], [Articulo]) VALUES (6, N'Pablo Liranzo', 548945321, N'ARS PALIC', 6)
+INSERT [dbo].[Cliente] ([CodigoCliente], [Nombre], [RNC], [Seguro], [Articulo]) VALUES (7, N'Maria Restrepo', 985461264, N'Humano', 7)
+INSERT [dbo].[Cliente] ([CodigoCliente], [Nombre], [RNC], [Seguro], [Articulo]) VALUES (8, N'Carmen Molina', 954546549, N'ARS PALIC', 8)
+INSERT [dbo].[Cliente] ([CodigoCliente], [Nombre], [RNC], [Seguro], [Articulo]) VALUES (9, N'Juan Cabrera', 895646659, N'Humano', 9)
+INSERT [dbo].[Cliente] ([CodigoCliente], [Nombre], [RNC], [Seguro], [Articulo]) VALUES (10, N'Melina Perez', 894546548, N'ARS PALIC', 10)
+SET IDENTITY_INSERT [dbo].[Cliente] OFF
+SET IDENTITY_INSERT [dbo].[Laboratorio] ON 
+
+INSERT [dbo].[Laboratorio] ([CodigoLaboratorio], [Nombre]) VALUES (1, N'Ethical')
+INSERT [dbo].[Laboratorio] ([CodigoLaboratorio], [Nombre]) VALUES (2, N'Rower')
+INSERT [dbo].[Laboratorio] ([CodigoLaboratorio], [Nombre]) VALUES (3, N'Acromax')
+INSERT [dbo].[Laboratorio] ([CodigoLaboratorio], [Nombre]) VALUES (4, N'Euro')
+INSERT [dbo].[Laboratorio] ([CodigoLaboratorio], [Nombre]) VALUES (5, N'Alfa')
+INSERT [dbo].[Laboratorio] ([CodigoLaboratorio], [Nombre]) VALUES (6, N'Medicare')
+INSERT [dbo].[Laboratorio] ([CodigoLaboratorio], [Nombre]) VALUES (7, N'Collado')
+INSERT [dbo].[Laboratorio] ([CodigoLaboratorio], [Nombre]) VALUES (8, N'Lam')
+INSERT [dbo].[Laboratorio] ([CodigoLaboratorio], [Nombre]) VALUES (9, N'Sued')
+INSERT [dbo].[Laboratorio] ([CodigoLaboratorio], [Nombre]) VALUES (10, N'Infaca')
+SET IDENTITY_INSERT [dbo].[Laboratorio] OFF
+ALTER TABLE [dbo].[Articulo]  WITH CHECK ADD  CONSTRAINT [FK_Articulo_Laboratorio] FOREIGN KEY([Laboratorio])
+REFERENCES [dbo].[Laboratorio] ([CodigoLaboratorio])
+GO
+ALTER TABLE [dbo].[Articulo] CHECK CONSTRAINT [FK_Articulo_Laboratorio]
+GO
+ALTER TABLE [dbo].[Cliente]  WITH CHECK ADD  CONSTRAINT [FK_Cliente_Articulo] FOREIGN KEY([Articulo])
+REFERENCES [dbo].[Articulo] ([CodigoArticulo])
+GO
+ALTER TABLE [dbo].[Cliente] CHECK CONSTRAINT [FK_Cliente_Articulo]
+GO
+USE [master]
+GO
+ALTER DATABASE [FarmaciaBD] SET  READ_WRITE 
+GO
